@@ -38,12 +38,11 @@ export default function AboutPage() {
             </p>
             
             {/* Back to Home Button */}
-            <link 
+            <Link
               href="/"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
-            >
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg">              
               ← Back to Home
-            </link>
+            </Link>
           </div>
         </div>
       </div>

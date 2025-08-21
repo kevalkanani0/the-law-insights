@@ -1,5 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
+
 export default function ShopPage() {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -57,12 +58,11 @@ export default function ShopPage() {
             </div>
             
             {/* Back to Home Button */}
-            <link 
+            <Link 
               href="/"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
-            >
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg">
               ← Back to Home
-            </link>
+            </Link>
           </div>
         </div>
       </div>

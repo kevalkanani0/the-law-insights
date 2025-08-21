@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { useSignUp } from '@clerk/nextjs';
-import Link from 'next/link';
+
+
 export default function SignupPage() {
   const [formData, setFormData] = useState({
     firstName: '',
