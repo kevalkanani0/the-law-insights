@@ -21,7 +21,7 @@ export default function SignupPage() {
   const [needsVerification, setNeedsVerification] = useState(false);
   const { signUp, setActive } = useSignUp();
   
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = <K extends keyof typeof formData>(field: K, value: typeof formData[K]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -43,10 +43,15 @@ export default function SignupPage() {
       } else {
         alert('Verification incomplete. Please try again.');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('❌ Verification error:', error);
-      if (error.errors && error.errors[0]) {
-        alert('Verification failed: ' + error.errors[0].message);
+      if (error && typeof error === 'object' && 'errors' in error) {
+        const clerkError = error as { errors: Array<{ message: string }> };
+        if (clerkError.errors && clerkError.errors[0]) {
+          alert('Verification failed: ' + clerkError.errors[0].message);
+        } else {
+          alert('Verification failed. Please check your code.');
+        }
       } else {
         alert('Verification failed. Please check your code.');
       }
@@ -100,11 +105,20 @@ export default function SignupPage() {
         alert('Account created but needs additional steps. Status: ' + result.status);
       }
       
-    } catch (error: any) {
+    } catch (error: unknown) {
+      // Handle signup errors: show specific Clerk error messages if available, otherwise show a generic error.
+      if (process.env.NODE_ENV === 'development') {
+        console.error('❌ Signup error:', error);
+      }
       console.error('❌ Signup error:', error);
       
-      if (error.errors && error.errors[0]) {
-        alert('Signup failed: ' + error.errors[0].message);
+      if (error && typeof error === 'object' && 'errors' in error) {
+        const clerkError = error as { errors: Array<{ message: string }> };
+        if (clerkError.errors && clerkError.errors[0]) {
+          alert('Signup failed: ' + clerkError.errors[0].message);
+        } else {
+          alert('Signup failed: Please try again.');
+        }
       } else if (error instanceof Error) {
         alert('Signup failed: ' + error.message);
       } else {
@@ -245,9 +259,9 @@ export default function SignupPage() {
                     </label>
                     <div className="grid md:grid-cols-3 gap-3">
                       {[
-                        { value: 'student', label: '🎓 Student', desc: 'Studying in Germany' },
-                        { value: 'professional', label: '💼 Professional', desc: 'Working or job-seeking' },
-                        { value: 'founder', label: '🚀 Founder', desc: 'Self-employed or starting business' }
+                        { value: 'student' as const, label: '🎓 Student', desc: 'Studying in Germany' },
+                        { value: 'professional' as const, label: '💼 Professional', desc: 'Working or job-seeking' },
+                        { value: 'founder' as const, label: '🚀 Founder', desc: 'Self-employed or starting business' }
                       ].map((type) => (
                         <button
                           key={type.value}

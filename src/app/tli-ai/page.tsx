@@ -66,7 +66,7 @@ export default function TLIAIPage() {
           {messages.length === 0 ? (
             <div className="text-center text-gray-400 mt-20">
               <div className="text-6xl mb-4">🤖</div>
-              <p className="text-lg mb-8">Hi! I'm The Law Insights AI. Ask me about:</p>
+              <p className="text-lg mb-8">Hi! I&apos;m The Law Insights AI. Ask me about:</p>
               <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto text-sm">
                 <div className="bg-white/5 rounded-lg p-3">💼 Student work limits</div>
                 <div className="bg-white/5 rounded-lg p-3">🏢 Business registration</div>

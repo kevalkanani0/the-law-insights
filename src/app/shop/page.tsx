@@ -30,7 +30,7 @@ export default function ShopPage() {
             <div className="text-6xl mb-6">🛍️</div>
             <h2 className="text-3xl font-bold text-white mb-6">Coming Soon</h2>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
-              We're preparing premium templates, legal document starters, 
+              We&apos;re preparing premium templates, legal document starters, 
               budgeting tools, and comprehensive guides. Everything you need 
               to navigate German bureaucracy with confidence.
             </p>
@@ -57,12 +57,12 @@ export default function ShopPage() {
             </div>
             
             {/* Back to Home Button */}
-            <a 
+            <link 
               href="/"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
             >
               ← Back to Home
-            </a>
+            </link>
           </div>
         </div>
       </div>

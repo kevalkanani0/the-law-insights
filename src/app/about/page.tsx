@@ -31,18 +31,18 @@ export default function AboutPage() {
             <div className="text-6xl mb-6">🚧</div>
             <h2 className="text-3xl font-bold text-white mb-6">Coming Soon</h2>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
-              We're crafting our story, mission, and the team behind The Law Insights. 
+              We&apos;re crafting our story, mission, and the team behind The Law Insights. 
               This page will include our journey, values, and commitment to helping 
               international students, expats, and founders in Germany.
             </p>
             
             {/* Back to Home Button */}
-            <a 
+            <link 
               href="/"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
             >
               ← Back to Home
-            </a>
+            </link>
           </div>
         </div>
       </div>

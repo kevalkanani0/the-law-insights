@@ -32,12 +32,17 @@ const handleSubmit = async (e: React.FormEvent) => {
       alert('Login requires additional steps (email verification, etc.)');
     }
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Login error:', error);
-    
-    // Handle Clerk-specific errors
-    if (error.errors && error.errors[0]) {
-      alert('Login failed: ' + error.errors[0].message);
+
+    // Handle Clerk-specific errors with proper type checking
+    if (error && typeof error === 'object' && 'errors' in error) {
+      const clerkError = error as { errors: Array<{ message: string }> };
+      if (clerkError.errors && clerkError.errors[0]) {
+        alert('Login failed: ' + clerkError.errors[0].message);
+      } else {
+        alert('Login failed: Invalid email or password.');
+      }
     } else if (error instanceof Error) {
       alert('Login failed: ' + error.message);
     } else {
@@ -119,7 +124,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 Forgot your password?
               </a>
               <div className="text-gray-400 text-sm">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <a href="/signup" className="text-blue-400 hover:text-blue-300 font-semibold">
                   Sign up
                 </a>
