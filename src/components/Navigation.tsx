@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useUser, SignOutButton } from '@clerk/nextjs';
+import Link from 'next/link';
 
 export default function Navigation() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -12,27 +13,27 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             The Law Insights
-          </link>
+          </Link>
           
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <link href="/" className="text-white/80 hover:text-white transition-colors font-medium">
+            <Link href="/" className="text-white/80 hover:text-white transition-colors font-medium">
               Home
-            </link>
-            <link href="/about" className="text-white/80 hover:text-white transition-colors font-medium">
+            </Link>
+            <Link href="/about" className="text-white/80 hover:text-white transition-colors font-medium">
               About
-            </link>
-            <link href="/tli-ai" className="text-white/80 hover:text-white transition-colors font-medium">
+            </Link>
+            <Link href="/tli-ai" className="text-white/80 hover:text-white transition-colors font-medium">
               AI Assistant
-            </link>
-            <link href="/calculators" className="text-white/80 hover:text-white transition-colors font-medium">
+            </Link>
+            <Link href="/calculators" className="text-white/80 hover:text-white transition-colors font-medium">
               Calculators
-            </link>
-            <link href="/shop" className="text-white/80 hover:text-white transition-colors font-medium">
+            </Link>
+            <Link href="/shop" className="text-white/80 hover:text-white transition-colors font-medium">
               Shop
-            </link>
+            </Link>
             
             {/* Profile Dropdown */}
             <div className="relative">
@@ -69,7 +70,7 @@ export default function Navigation() {
                       
                       {/* Menu Items */}
                       <div className="py-2">
-                        <link 
+                        <Link 
                           href="/dashboard" 
                           className="flex items-center px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                           onClick={() => setIsProfileOpen(false)}
@@ -78,9 +79,9 @@ export default function Navigation() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                           </svg>
                           Dashboard
-                        </link>
+                        </Link>
                         
-                        <link 
+                        <Link 
                           href="/profile" 
                           className="flex items-center px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                           onClick={() => setIsProfileOpen(false)}
@@ -90,9 +91,9 @@ export default function Navigation() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
                           Settings
-                        </link>
+                        </Link>
                         
-                        <link 
+                        <Link 
                           href="/chat-history" 
                           className="flex items-center px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                           onClick={() => setIsProfileOpen(false)}
@@ -101,7 +102,7 @@ export default function Navigation() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                           </svg>
                           Chat History
-                        </link>
+                        </Link>
                       </div>
                       
                       {/* Sign Out */}
@@ -122,7 +123,7 @@ export default function Navigation() {
                   ) : (
                     // Not logged in menu
                     <div className="py-2">
-                      <link 
+                      <Link 
                         href="/login" 
                         className="flex items-center px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                         onClick={() => setIsProfileOpen(false)}
@@ -131,8 +132,8 @@ export default function Navigation() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
                         Sign In
-                      </link>
-                      <link 
+                      </Link>
+                      <Link 
                         href="/signup" 
                         className="flex items-center px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                         onClick={() => setIsProfileOpen(false)}
@@ -141,7 +142,7 @@ export default function Navigation() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                         </svg>
                         Create Account
-                      </link>
+                      </Link>
                       
                       {/* Coming Soon Section */}
                       <div className="border-t border-white/10 mt-2 pt-2">
@@ -174,15 +175,15 @@ export default function Navigation() {
                       <div className="px-4 py-2 border-b border-white/10">
                         <div className="text-white text-sm font-semibold">{user.firstName}</div>
                       </div>
-                      <link href="/dashboard" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Dashboard</link>
+                      <Link href="/dashboard" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Dashboard</Link>
                       <SignOutButton>
                         <button className="block w-full text-left px-4 py-2 text-red-400 text-sm">Sign Out</button>
                       </SignOutButton>
                     </div>
                   ) : (
                     <div className="py-2">
-                      <link href="/login" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Sign In</link>
-                      <link href="/signup" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Create Account</link>
+                      <Link href="/login" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Sign In</Link>
+                      <Link href="/signup" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Create Account</Link>
                     </div>
                   )}
                 </div>
