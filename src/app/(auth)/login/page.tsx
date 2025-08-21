@@ -18,6 +18,12 @@ const handleSubmit = async (e: React.FormEvent) => {
   try {
     console.log('Attempting login with:', email);
     
+    // Check if signIn is available
+    if (!signIn) {
+      alert('Authentication not available. Please try again.');
+      return;
+    }
+    
     // Real Clerk authentication
     const result = await signIn.create({
       identifier: email,
