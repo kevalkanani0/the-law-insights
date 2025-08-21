@@ -21,16 +21,17 @@ export async function POST(req: Request) {
       system: "You are The Law Insights AI, a helpful assistant for German law. Provide educational information only, not legal advice. Always end responses with: Educational info only, not legal advice.",
       messages,
       temperature: 0.7,
-      maxTokens: 1000,
+      // Remove maxTokens from here - it's not supported at this level
     });
 
     console.log('Groq response:', result.text);
     return Response.json({ message: result.text });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Detailed error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return Response.json({ 
       error: 'Failed to generate response', 
-      details: error.message 
+      details: errorMessage 
     }, { status: 500 });
   }
 }
