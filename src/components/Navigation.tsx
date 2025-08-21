@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 export default function Navigation() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Added this state
   const { isSignedIn, user } = useUser();
 
   return (
@@ -17,7 +18,7 @@ export default function Navigation() {
             The Law Insights
           </Link>
           
-          {/* Navigation Links */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-white/80 hover:text-white transition-colors font-medium">
               Home
@@ -35,7 +36,7 @@ export default function Navigation() {
               Shop
             </Link>
             
-            {/* Profile Dropdown */}
+            {/* Desktop Profile Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -45,14 +46,14 @@ export default function Navigation() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <span>
-                  {isSignedIn ? `Hi, ${user.firstName || 'User'}!` : 'Profile'}
+                  {isSignedIn ? `Hi, ${user?.firstName || 'User'}!` : 'Profile'}
                 </span>
                 <svg className={`w-4 h-4 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               
-              {/* Dropdown Menu */}
+              {/* Desktop Dropdown Menu */}
               {isProfileOpen && (
                 <div className="absolute right-0 mt-2 w-64 backdrop-blur-xl bg-black/80 border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
                   {isSignedIn ? (
@@ -61,10 +62,10 @@ export default function Navigation() {
                       {/* User Info */}
                       <div className="px-4 py-3 border-b border-white/10">
                         <div className="text-white font-semibold">
-                          {user.firstName} {user.lastName}
+                          {user?.firstName} {user?.lastName}
                         </div>
                         <div className="text-gray-400 text-sm">
-                          {user.primaryEmailAddress?.emailAddress}
+                          {user?.primaryEmailAddress?.emailAddress}
                         </div>
                       </div>
                       
@@ -157,46 +158,99 @@ export default function Navigation() {
             </div>
           </div>
           
-          {/* Mobile menu */}
+          {/* Mobile menu button */}
           <div className="flex items-center space-x-4 md:hidden">
             <div className="relative">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 px-4 py-2 rounded-xl font-semibold text-sm"
               >
-                {isSignedIn ? `Hi, ${user.firstName}!` : 'Profile'}
+                {isSignedIn ? `Hi, ${user?.firstName}!` : 'Profile'}
               </button>
               
-              {/* Mobile Dropdown - Same content but simplified */}
+              {/* Mobile Profile Dropdown */}
               {isProfileOpen && (
                 <div className="absolute right-0 mt-2 w-48 backdrop-blur-xl bg-black/80 border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
                   {isSignedIn ? (
                     <div className="py-2">
                       <div className="px-4 py-2 border-b border-white/10">
-                        <div className="text-white text-sm font-semibold">{user.firstName}</div>
+                        <div className="text-white text-sm font-semibold">{user?.firstName}</div>
                       </div>
-                      <Link href="/dashboard" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Dashboard</Link>
+                      <Link href="/dashboard" className="block px-4 py-2 text-white/80 hover:text-white text-sm" onClick={() => setIsProfileOpen(false)}>Dashboard</Link>
                       <SignOutButton>
-                        <button className="block w-full text-left px-4 py-2 text-red-400 text-sm">Sign Out</button>
+                        <button className="block w-full text-left px-4 py-2 text-red-400 text-sm" onClick={() => setIsProfileOpen(false)}>Sign Out</button>
                       </SignOutButton>
                     </div>
                   ) : (
                     <div className="py-2">
-                      <Link href="/login" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Sign In</Link>
-                      <Link href="/signup" className="block px-4 py-2 text-white/80 hover:text-white text-sm">Create Account</Link>
+                      <Link href="/login" className="block px-4 py-2 text-white/80 hover:text-white text-sm" onClick={() => setIsProfileOpen(false)}>Sign In</Link>
+                      <Link href="/signup" className="block px-4 py-2 text-white/80 hover:text-white text-sm" onClick={() => setIsProfileOpen(false)}>Create Account</Link>
                     </div>
                   )}
                 </div>
               )}
             </div>
             
-            <button className="text-white">
+            {/* Hamburger Menu Button - NOW WITH FUNCTIONALITY */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-white p-2"
+            >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                {isMobileMenuOpen ? (
+                  // X icon when menu is open
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  // Hamburger icon when menu is closed
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
           </div>
         </div>
+        
+        {/* Mobile Navigation Menu - NOW FUNCTIONAL */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4">
+            <div className="flex flex-col space-y-4">
+              <Link 
+                href="/" 
+                className="text-white/80 hover:text-white transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                href="/about" 
+                className="text-white/80 hover:text-white transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link 
+                href="/tli-ai" 
+                className="text-white/80 hover:text-white transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                AI Assistant
+              </Link>
+              <Link 
+                href="/calculators" 
+                className="text-white/80 hover:text-white transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Calculators
+              </Link>
+              <Link 
+                href="/shop" 
+                className="text-white/80 hover:text-white transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Shop
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

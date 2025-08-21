@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 
@@ -42,7 +42,7 @@ function StudentWorkHoursCalculator() {
       {/* User Type Selection */}
       <div>
         <label className="block text-white font-semibold mb-4">Your Status:</label>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => setUserType('eu')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
@@ -67,7 +67,7 @@ function StudentWorkHoursCalculator() {
       </div>
       
       {/* Input Fields */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label className="block text-white font-semibold mb-2">
             Hours per week during semester:
@@ -115,7 +115,7 @@ function StudentWorkHoursCalculator() {
       <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6">
         <h4 className="text-xl font-bold text-white mb-4">📊 Calculation Results</h4>
         
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-gray-300">Semester hours:</span>
@@ -257,7 +257,7 @@ function TaxEstimationCalculator() {
       {/* Employment Type Selection */}
       <div>
         <label className="block text-white font-semibold mb-4">Employment Type:</label>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => setEmploymentType('employee')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
@@ -282,7 +282,7 @@ function TaxEstimationCalculator() {
       </div>
       
       {/* Input Fields */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label className="block text-white font-semibold mb-2">
             Annual Income (€):
@@ -351,7 +351,7 @@ function TaxEstimationCalculator() {
       <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6">
         <h4 className="text-xl font-bold text-white mb-4">💰 Tax Calculation Results</h4>
         
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-gray-300">Gross Annual Income:</span>
@@ -449,7 +449,7 @@ function KleinunternehmerCalculator() {
       {/* Business Type Selection */}
       <div>
         <label className="block text-white font-semibold mb-4">Business Status:</label>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => setBusinessType('new')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
@@ -474,7 +474,7 @@ function KleinunternehmerCalculator() {
       </div>
       
       {/* Input Fields */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {businessType === 'existing' && (
           <div>
             <label className="block text-white font-semibold mb-2">
@@ -526,7 +526,7 @@ function KleinunternehmerCalculator() {
       <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6">
         <h4 className="text-xl font-bold text-white mb-4">📊 Kleinunternehmer Eligibility</h4>
         
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-gray-300">Current Year Revenue:</span>
@@ -575,7 +575,7 @@ function KleinunternehmerCalculator() {
         </div>
         
         {/* Detailed Breakdown */}
-        <div className="mt-6 grid md:grid-cols-2 gap-4">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className={`p-4 rounded-xl ${results.previousYearOk ? 'bg-green-500/10 border border-green-500/20' : 'bg-red-500/10 border border-red-500/20'}`}>
             <div className="flex items-center space-x-2">
               <span className={results.previousYearOk ? 'text-green-400' : 'text-red-400'}>
@@ -616,6 +616,36 @@ function KleinunternehmerCalculator() {
 
 export default function CalculatorsPage() {
   const [activeCalculator, setActiveCalculator] = useState<string | null>(null);
+  const calculatorRef = useRef<HTMLDivElement>(null);
+
+  const handleCalculatorSelect = (calculatorType: string) => {
+    setActiveCalculator(calculatorType);
+    
+    // Smooth scroll to calculator on mobile after a short delay
+    setTimeout(() => {
+      if (calculatorRef.current) {
+        calculatorRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    }, 100);
+  };
+
+  // Auto-scroll when calculator changes
+  useEffect(() => {
+    if (activeCalculator && calculatorRef.current) {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        setTimeout(() => {
+          calculatorRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }, 100);
+      }
+    }
+  }, [activeCalculator]);
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -632,20 +662,22 @@ export default function CalculatorsPage() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 pt-32">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
             Calculators
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
             Calculate work hours, tax estimates, and business requirements for Germany
           </p>
         </div>
 
-        {/* Calculator Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        {/* Calculator Cards - Hidden when calculator is active on mobile */}
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 transition-all duration-300 ${
+          activeCalculator ? 'md:block hidden' : 'block'
+        }`}>
           {/* Student Work Hours Calculator */}
           <div 
             className="group relative cursor-pointer"
-            onClick={() => setActiveCalculator('work-hours')}
+            onClick={() => handleCalculatorSelect('work-hours')}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition-all duration-300"></div>
             <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 hover:scale-105 hover:bg-white/15 transition-all duration-500 shadow-2xl">
@@ -663,7 +695,7 @@ export default function CalculatorsPage() {
           {/* Tax Calculator */}
           <div 
             className="group relative cursor-pointer"
-            onClick={() => setActiveCalculator('tax-estimate')}
+            onClick={() => handleCalculatorSelect('tax-estimate')}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition-all duration-300"></div>
             <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 hover:scale-105 hover:bg-white/15 transition-all duration-500 shadow-2xl">
@@ -681,7 +713,7 @@ export default function CalculatorsPage() {
           {/* Kleinunternehmer Calculator */}
           <div 
             className="group relative cursor-pointer"
-            onClick={() => setActiveCalculator('kleinunternehmer')}
+            onClick={() => handleCalculatorSelect('kleinunternehmer')}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition-all duration-300"></div>
             <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 hover:scale-105 hover:bg-white/15 transition-all duration-500 shadow-2xl">
@@ -699,21 +731,31 @@ export default function CalculatorsPage() {
 
         {/* Active Calculator Display */}
         {activeCalculator && (
-          <div className="relative">
+          <div ref={calculatorRef} className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur"></div>
-            <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-white">
+            <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-2xl">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+                <h3 className="text-xl md:text-2xl font-bold text-white">
                   {activeCalculator === 'work-hours' && 'Student Work Hours Calculator'}
                   {activeCalculator === 'tax-estimate' && 'Tax Estimation Calculator'}
                   {activeCalculator === 'kleinunternehmer' && 'Kleinunternehmer Eligibility'}
                 </h3>
-                <button 
-                  onClick={() => setActiveCalculator(null)}
-                  className="text-gray-400 hover:text-white text-2xl"
-                >
-                  ✕
-                </button>
+                <div className="flex gap-2">
+                  {/* Back to all calculators button - mobile only */}
+                  <button 
+                    onClick={() => setActiveCalculator(null)}
+                    className="md:hidden bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-gray-300 hover:text-white transition-all text-sm"
+                  >
+                    ← All Calculators
+                  </button>
+                  {/* Close button */}
+                  <button 
+                    onClick={() => setActiveCalculator(null)}
+                    className="text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-lg transition-all"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
               
               {/* Student Work Hours Calculator */}
@@ -722,12 +764,10 @@ export default function CalculatorsPage() {
               )}
               
               {/* Tax Calculator */}
-              {/* Tax Calculator */}
               {activeCalculator === 'tax-estimate' && (
                 <TaxEstimationCalculator />
               )}
               
-              {/* Kleinunternehmer Calculator */}
               {/* Kleinunternehmer Calculator */}
               {activeCalculator === 'kleinunternehmer' && (
                 <KleinunternehmerCalculator />
