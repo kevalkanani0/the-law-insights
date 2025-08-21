@@ -40,56 +40,56 @@ export default function TLIAIPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-auto scroll-smooth">
       <Navigation />
       
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-black"></div>
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
       
       {/* Animated background orbs */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      <div className="fixed top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl"></div>
+      <div className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-yellow-400/[0.03] rounded-full blur-3xl"></div>
       
       {/* Main chat container */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-8 h-screen flex flex-col">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pt-24 md:pt-28 pb-6 min-h-screen flex flex-col">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-thin text-white leading-tight tracking-tight mb-3 md:mb-4">
             The Law Insights AI
           </h1>
-          <p className="text-gray-300">
+          <p className="text-white/70 font-light leading-relaxed text-base md:text-lg">
             Ask me anything about German law, work regulations, or business requirements
           </p>
         </div>
 
-        {/* Chat messages */}
-        <div className="flex-1 backdrop-blur-xl bg-white/5 border border-white/20 rounded-3xl p-6 mb-6 overflow-y-auto">
+        {/* Chat messages - Expanded area */}
+        <div className="flex-1 backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-4 md:p-6 lg:p-8 mb-4 md:mb-6 overflow-y-auto hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl min-h-[60vh] max-h-[70vh]">
           {messages.length === 0 ? (
-            <div className="text-center text-gray-400 mt-20">
-              <div className="text-6xl mb-4">🤖</div>
-              <p className="text-lg mb-8">Hi! I&apos;m The Law Insights AI. Ask me about:</p>
-              <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto text-sm">
-                <div className="bg-white/5 rounded-lg p-3">💼 Student work limits</div>
-                <div className="bg-white/5 rounded-lg p-3">🏢 Business registration</div>
-                <div className="bg-white/5 rounded-lg p-3">💰 Tax questions</div>
-                <div className="bg-white/5 rounded-lg p-3">📄 Visa requirements</div>
+            <div className="text-center text-white/60 flex flex-col justify-center h-full min-h-[400px]">
+              <div className="text-5xl md:text-6xl mb-6">🤖</div>
+              <p className="text-lg md:text-xl mb-8 font-light">Hi! I&apos;m The Law Insights AI. Ask me about:</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto text-sm md:text-base">
+                <div className="backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl p-4 hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-500">💼 Student work limits</div>
+                <div className="backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl p-4 hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-500">🏢 Business registration</div>
+                <div className="backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl p-4 hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-500">💰 Tax questions</div>
+                <div className="backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl p-4 hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-500">📄 Visa requirements</div>
               </div>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {messages.map((message) => (
                 <div
                   key={message.id}
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-3xl rounded-2xl p-4 ${
+                    className={`max-w-[85%] md:max-w-3xl rounded-2xl p-3 md:p-4 ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
-                        : 'bg-white/10 border border-white/20 text-white'
+                        ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 font-light'
+                        : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.08] text-white font-light'
                     }`}
                   >
-                    <div className="whitespace-pre-wrap">{message.content}</div>
+                    <div className="whitespace-pre-wrap text-sm md:text-base leading-relaxed">{message.content}</div>
                   </div>
                 </div>
               ))}
@@ -97,10 +97,10 @@ export default function TLIAIPage() {
               {/* Loading indicator */}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 border border-white/20 rounded-2xl p-4">
-                    <div className="flex items-center space-x-2">
-                      <div className="animate-spin w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full"></div>
-                      <span className="text-gray-300">Thinking...</span>
+                  <div className="backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl p-3 md:p-4">
+                    <div className="flex items-center space-x-2 md:space-x-3">
+                      <div className="animate-spin w-4 h-4 md:w-5 md:h-5 border-2 border-yellow-400/50 border-t-yellow-400 rounded-full"></div>
+                      <span className="text-white/70 font-light text-sm md:text-base">Thinking...</span>
                     </div>
                   </div>
                 </div>
@@ -110,20 +110,20 @@ export default function TLIAIPage() {
         </div>
 
         {/* Input area */}
-        <form onSubmit={handleSubmit} className="relative">
-          <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-4">
-            <div className="flex items-center space-x-4">
+        <form onSubmit={handleSubmit} className="relative sticky bottom-0 bg-black/20 backdrop-blur-sm rounded-2xl p-2">
+          <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-2xl p-3 md:p-4 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:gap-4">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about German law, taxes, work regulations..."
-                className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none text-lg"
+                className="flex-1 backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-3 md:px-4 py-3 md:py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light text-sm md:text-base"
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 px-4 md:px-6 py-3 rounded-xl font-light hover:bg-yellow-400/30 hover:border-yellow-400/50 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base min-w-[70px] md:min-w-[80px]"
               >
                 Send
               </button>

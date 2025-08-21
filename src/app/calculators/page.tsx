@@ -41,24 +41,24 @@ function StudentWorkHoursCalculator() {
     <div className="space-y-8">
       {/* User Type Selection */}
       <div>
-        <label className="block text-white font-semibold mb-4">Your Status:</label>
+        <label className="block text-white font-light text-xl mb-4">Your Status:</label>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => setUserType('eu')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 ${
               userType === 'eu' 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
             }`}
           >
             EU/EEA Student
           </button>
           <button
             onClick={() => setUserType('non-eu')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 ${
               userType === 'non-eu' 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
             }`}
           >
             Non-EU Student
@@ -69,84 +69,87 @@ function StudentWorkHoursCalculator() {
       {/* Input Fields */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             Hours per week during semester:
           </label>
           <input
             type="number"
-            value={hoursPerWeek}
-            onChange={(e) => setHoursPerWeek(Number(e.target.value))}
+            value={hoursPerWeek === 0 ? '' : hoursPerWeek}
+            onChange={(e) => setHoursPerWeek(e.target.value === '' ? 0 : Number(e.target.value))}
             min="0"
             max="40"
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter hours"
+            className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
           />
         </div>
         
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             Weeks in semester:
           </label>
           <input
             type="number"
-            value={semesterWeeks}
-            onChange={(e) => setSemesterWeeks(Number(e.target.value))}
+            value={semesterWeeks === 0 ? '' : semesterWeeks}
+            onChange={(e) => setSemesterWeeks(e.target.value === '' ? 0 : Number(e.target.value))}
             min="0"
             max="30"
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter weeks"
+            className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
           />
         </div>
         
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             Full vacation days worked:
           </label>
           <input
             type="number"
-            value={vacationDays}
-            onChange={(e) => setVacationDays(Number(e.target.value))}
+            value={vacationDays === 0 ? '' : vacationDays}
+            onChange={(e) => setVacationDays(e.target.value === '' ? 0 : Number(e.target.value))}
             min="0"
             max="365"
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter days"
+            className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
           />
         </div>
       </div>
       
       {/* Results */}
-      <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6">
-        <h4 className="text-xl font-bold text-white mb-4">📊 Calculation Results</h4>
+      <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl">
+        <h4 className="text-2xl font-light text-white mb-6">📊 Calculation Results</h4>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
             <div className="flex justify-between">
-              <span className="text-gray-300">Semester hours:</span>
-              <span className="text-white font-semibold">{results.totalSemesterHours}h</span>
+              <span className="text-white/70 font-light">Semester hours:</span>
+              <span className="text-white font-light text-lg">{results.totalSemesterHours}h</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Vacation hours:</span>
-              <span className="text-white font-semibold">{results.totalVacationHours}h</span>
+              <span className="text-white/70 font-light">Vacation hours:</span>
+              <span className="text-white font-light text-lg">{results.totalVacationHours}h</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Total yearly hours:</span>
-              <span className="text-white font-semibold">{results.totalYearlyHours}h</span>
+              <span className="text-white/70 font-light">Total yearly hours:</span>
+              <span className="text-white font-light text-lg">{results.totalYearlyHours}h</span>
             </div>
           </div>
           
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-300">Weekly limit (≤20h):</span>
-              <span className={`font-semibold ${results.weeklyLimitOk ? 'text-green-400' : 'text-red-400'}`}>
+              <span className="text-white/70 font-light">Weekly limit (≤20h):</span>
+              <span className={`font-light ${results.weeklyLimitOk ? 'text-green-400' : 'text-red-400'}`}>
                 {results.weeklyLimitOk ? '✅ OK' : '❌ Exceeded'}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-300">Yearly days (≤120):</span>
-              <span className={`font-semibold ${results.yearlyDaysOk ? 'text-green-400' : 'text-red-400'}`}>
+              <span className="text-white/70 font-light">Yearly days (≤120):</span>
+              <span className={`font-light ${results.yearlyDaysOk ? 'text-green-400' : 'text-red-400'}`}>
                 {results.yearlyDaysOk ? '✅ OK' : '❌ Exceeded'}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-300">Half-day limit (≤240):</span>
-              <span className={`font-semibold ${results.halfDayLimitOk ? 'text-green-400' : 'text-red-400'}`}>
+              <span className="text-white/70 font-light">Half-day limit (≤240):</span>
+              <span className={`font-light ${results.halfDayLimitOk ? 'text-green-400' : 'text-red-400'}`}>
                 {results.halfDayLimitOk ? '✅ OK' : '❌ Exceeded'}
               </span>
             </div>
@@ -154,10 +157,10 @@ function StudentWorkHoursCalculator() {
         </div>
         
         {/* Overall Status */}
-        <div className={`mt-6 p-4 rounded-xl text-center font-bold text-lg ${
+        <div className={`mt-8 p-6 rounded-2xl text-center font-light text-lg ${
           results.isCompliant 
-            ? 'bg-green-500/20 border border-green-500/30 text-green-300' 
-            : 'bg-red-500/20 border border-red-500/30 text-red-300'
+            ? 'backdrop-blur-md bg-green-400/20 border border-green-400/30 text-green-300' 
+            : 'backdrop-blur-md bg-red-400/20 border border-red-400/30 text-red-300'
         }`}>
           {results.isCompliant 
             ? '✅ Your work schedule is compliant with German regulations!' 
@@ -167,8 +170,8 @@ function StudentWorkHoursCalculator() {
         
         {/* Additional Info */}
         {userType === 'non-eu' && (
-          <div className="mt-4 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-xl">
-            <p className="text-yellow-200 text-sm">
+          <div className="mt-6 p-6 backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 rounded-2xl">
+            <p className="text-yellow-200 font-light leading-relaxed">
               <strong>Note for Non-EU students:</strong> Additional work restrictions may apply based on your visa type. 
               Always check with Ausländerbehörde for your specific situation.
             </p>
@@ -256,24 +259,24 @@ function TaxEstimationCalculator() {
     <div className="space-y-8">
       {/* Employment Type Selection */}
       <div>
-        <label className="block text-white font-semibold mb-4">Employment Type:</label>
+        <label className="block text-white font-light text-xl mb-4">Employment Type:</label>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => setEmploymentType('employee')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 ${
               employmentType === 'employee' 
-                ? 'bg-purple-500 text-white' 
-                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
             }`}
           >
             Employee
           </button>
           <button
             onClick={() => setEmploymentType('freelancer')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 ${
               employmentType === 'freelancer' 
-                ? 'bg-purple-500 text-white' 
-                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
             }`}
           >
             Freelancer/Self-employed
@@ -284,29 +287,30 @@ function TaxEstimationCalculator() {
       {/* Input Fields */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             Annual Income (€):
           </label>
           <input
             type="number"
-            value={annualIncome}
-            onChange={(e) => setAnnualIncome(Number(e.target.value))}
+            value={annualIncome === 0 ? '' : annualIncome}
+            onChange={(e) => setAnnualIncome(e.target.value === '' ? 0 : Number(e.target.value))}
             min="0"
             max="500000"
             step="1000"
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+            placeholder="Enter income"
+            className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
           />
         </div>
         
         {employmentType === 'employee' && (
           <div>
-            <label className="block text-white font-semibold mb-2">
+            <label className="block text-white font-light text-lg mb-3">
               Tax Class:
             </label>
             <select
               value={taxClass}
               onChange={(e) => setTaxClass(Number(e.target.value))}
-              className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
             >
               <option value={1}>Class I (Single)</option>
               <option value={2}>Class II (Single parent)</option>
@@ -319,26 +323,26 @@ function TaxEstimationCalculator() {
         )}
         
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             Church Tax:
           </label>
           <div className="flex items-center space-x-4 mt-3">
             <button
               onClick={() => setChurchTax(false)}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-6 py-3 rounded-xl font-light transition-all duration-500 ${
                 !churchTax 
-                  ? 'bg-purple-500 text-white' 
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                  ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                  : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
               }`}
             >
               No
             </button>
             <button
               onClick={() => setChurchTax(true)}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-6 py-3 rounded-xl font-light transition-all duration-500 ${
                 churchTax 
-                  ? 'bg-purple-500 text-white' 
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                  ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                  : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
               }`}
             >
               Yes
@@ -348,57 +352,57 @@ function TaxEstimationCalculator() {
       </div>
       
       {/* Results */}
-      <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6">
-        <h4 className="text-xl font-bold text-white mb-4">💰 Tax Calculation Results</h4>
+      <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl">
+        <h4 className="text-2xl font-light text-white mb-6">💰 Tax Calculation Results</h4>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
             <div className="flex justify-between">
-              <span className="text-gray-300">Gross Annual Income:</span>
-              <span className="text-white font-semibold">€{annualIncome.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Gross Annual Income:</span>
+              <span className="text-white font-light text-lg">€{annualIncome.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Income Tax:</span>
-              <span className="text-white font-semibold">€{results.incomeTax.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Income Tax:</span>
+              <span className="text-white font-light text-lg">€{results.incomeTax.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Solidarity Tax:</span>
-              <span className="text-white font-semibold">€{results.solidarityTax.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Solidarity Tax:</span>
+              <span className="text-white font-light text-lg">€{results.solidarityTax.toLocaleString()}</span>
             </div>
             {churchTax && (
               <div className="flex justify-between">
-                <span className="text-gray-300">Church Tax:</span>
-                <span className="text-white font-semibold">€{results.churchTaxAmount.toLocaleString()}</span>
+                <span className="text-white/70 font-light">Church Tax:</span>
+                <span className="text-white font-light text-lg">€{results.churchTaxAmount.toLocaleString()}</span>
               </div>
             )}
           </div>
           
-          <div className="space-y-3">
+          <div className="space-y-4">
             {employmentType === 'employee' && (
               <div className="flex justify-between">
-                <span className="text-gray-300">Social Contributions:</span>
-                <span className="text-white font-semibold">€{results.socialContributions.toLocaleString()}</span>
+                <span className="text-white/70 font-light">Social Contributions:</span>
+                <span className="text-white font-light text-lg">€{results.socialContributions.toLocaleString()}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-gray-300">Net Annual Income:</span>
-              <span className="text-green-400 font-bold text-lg">€{results.netIncome.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Net Annual Income:</span>
+              <span className="text-green-400 font-light text-xl">€{results.netIncome.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Effective Tax Rate:</span>
-              <span className="text-white font-semibold">{results.taxRate}%</span>
+              <span className="text-white/70 font-light">Effective Tax Rate:</span>
+              <span className="text-white font-light text-lg">{results.taxRate}%</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Monthly Net:</span>
-              <span className="text-green-400 font-bold">€{Math.round(results.netIncome / 12).toLocaleString()}</span>
+              <span className="text-white/70 font-light">Monthly Net:</span>
+              <span className="text-green-400 font-light text-lg">€{Math.round(results.netIncome / 12).toLocaleString()}</span>
             </div>
           </div>
         </div>
         
         {/* Additional Info */}
-        <div className="mt-6 p-4 bg-blue-500/20 border border-blue-500/30 rounded-xl">
-          <p className="text-blue-200 text-sm">
-            <strong>Note:</strong> This is a simplified calculation for estimation purposes. 
+        <div className="mt-8 p-6 backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl">
+          <p className="text-white/70 font-light leading-relaxed">
+            <strong className="text-white">Note:</strong> This is a simplified calculation for estimation purposes. 
             Actual tax amounts may vary based on deductions, allowances, and other factors. 
             Consult a tax advisor for precise calculations.
           </p>
@@ -448,24 +452,24 @@ function KleinunternehmerCalculator() {
     <div className="space-y-8">
       {/* Business Type Selection */}
       <div>
-        <label className="block text-white font-semibold mb-4">Business Status:</label>
+        <label className="block text-white font-light text-xl mb-4">Business Status:</label>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => setBusinessType('new')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 ${
               businessType === 'new' 
-                ? 'bg-orange-500 text-white' 
-                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
             }`}
           >
             New Business
           </button>
           <button
             onClick={() => setBusinessType('existing')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 ${
               businessType === 'existing' 
-                ? 'bg-orange-500 text-white' 
-                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400' 
+                : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
             }`}
           >
             Existing Business
@@ -477,44 +481,46 @@ function KleinunternehmerCalculator() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {businessType === 'existing' && (
           <div>
-            <label className="block text-white font-semibold mb-2">
+            <label className="block text-white font-light text-lg mb-3">
               Previous Year Revenue (€):
             </label>
             <input
               type="number"
-              value={previousYearRevenue}
-              onChange={(e) => setPreviousYearRevenue(Number(e.target.value))}
+              value={previousYearRevenue === 0 ? '' : previousYearRevenue}
+              onChange={(e) => setPreviousYearRevenue(e.target.value === '' ? 0 : Number(e.target.value))}
               min="0"
               max="100000"
               step="1000"
-              className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
+              placeholder="Enter revenue"
+              className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
             />
           </div>
         )}
         
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             Expected Current Year Revenue (€):
           </label>
           <input
             type="number"
-            value={currentYearRevenue}
-            onChange={(e) => setCurrentYearRevenue(Number(e.target.value))}
+            value={currentYearRevenue === 0 ? '' : currentYearRevenue}
+            onChange={(e) => setCurrentYearRevenue(e.target.value === '' ? 0 : Number(e.target.value))}
             min="0"
             max="100000"
             step="1000"
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
+            placeholder="Enter revenue"
+            className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
           />
         </div>
         
         <div>
-          <label className="block text-white font-semibold mb-2">
+          <label className="block text-white font-light text-lg mb-3">
             VAT Rate (%):
           </label>
           <select
             value={vatRate}
             onChange={(e) => setVatRate(Number(e.target.value))}
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
           >
             <option value={19}>19% (Standard rate)</option>
             <option value={7}>7% (Reduced rate)</option>
@@ -523,50 +529,50 @@ function KleinunternehmerCalculator() {
       </div>
       
       {/* Results */}
-      <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6">
-        <h4 className="text-xl font-bold text-white mb-4">📊 Kleinunternehmer Eligibility</h4>
+      <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl">
+        <h4 className="text-2xl font-light text-white mb-6">📊 Kleinunternehmer Eligibility</h4>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
             <div className="flex justify-between">
-              <span className="text-gray-300">Current Year Revenue:</span>
-              <span className="text-white font-semibold">€{currentYearRevenue.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Current Year Revenue:</span>
+              <span className="text-white font-light text-lg">€{currentYearRevenue.toLocaleString()}</span>
             </div>
             {businessType === 'existing' && (
               <div className="flex justify-between">
-                <span className="text-gray-300">Previous Year Revenue:</span>
-                <span className="text-white font-semibold">€{previousYearRevenue.toLocaleString()}</span>
+                <span className="text-white/70 font-light">Previous Year Revenue:</span>
+                <span className="text-white font-light text-lg">€{previousYearRevenue.toLocaleString()}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-gray-300">Revenue Buffer:</span>
-              <span className="text-white font-semibold">€{results.revenueBuffer.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Revenue Buffer:</span>
+              <span className="text-white font-light text-lg">€{results.revenueBuffer.toLocaleString()}</span>
             </div>
           </div>
           
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex justify-between">
-              <span className="text-gray-300">Annual VAT Savings:</span>
-              <span className="text-green-400 font-bold">€{results.vatSavings.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Annual VAT Savings:</span>
+              <span className="text-green-400 font-light text-xl">€{results.vatSavings.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-300">Monthly VAT Savings:</span>
-              <span className="text-green-400 font-bold">€{results.vatSavingsMonthly.toLocaleString()}</span>
+              <span className="text-white/70 font-light">Monthly VAT Savings:</span>
+              <span className="text-green-400 font-light text-lg">€{results.vatSavingsMonthly.toLocaleString()}</span>
             </div>
             {results.monthsUntilLimit < 12 && (
               <div className="flex justify-between">
-                <span className="text-gray-300">Months until limit:</span>
-                <span className="text-yellow-400 font-semibold">{results.monthsUntilLimit}</span>
+                <span className="text-white/70 font-light">Months until limit:</span>
+                <span className="text-yellow-400 font-light text-lg">{results.monthsUntilLimit}</span>
               </div>
             )}
           </div>
         </div>
         
         {/* Eligibility Status */}
-        <div className={`mt-6 p-4 rounded-xl text-center font-bold text-lg ${
+        <div className={`mt-8 p-6 rounded-2xl text-center font-light text-lg ${
           results.isEligible 
-            ? 'bg-green-500/20 border border-green-500/30 text-green-300' 
-            : 'bg-red-500/20 border border-red-500/30 text-red-300'
+            ? 'backdrop-blur-md bg-green-400/20 border border-green-400/30 text-green-300' 
+            : 'backdrop-blur-md bg-red-400/20 border border-red-400/30 text-red-300'
         }`}>
           {results.isEligible 
             ? '✅ You qualify for Kleinunternehmerregelung!' 
@@ -575,36 +581,36 @@ function KleinunternehmerCalculator() {
         </div>
         
         {/* Detailed Breakdown */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className={`p-4 rounded-xl ${results.previousYearOk ? 'bg-green-500/10 border border-green-500/20' : 'bg-red-500/10 border border-red-500/20'}`}>
-            <div className="flex items-center space-x-2">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className={`p-6 rounded-2xl ${results.previousYearOk ? 'backdrop-blur-md bg-green-400/10 border border-green-400/20' : 'backdrop-blur-md bg-red-400/10 border border-red-400/20'}`}>
+            <div className="flex items-center space-x-3">
               <span className={results.previousYearOk ? 'text-green-400' : 'text-red-400'}>
                 {results.previousYearOk ? '✅' : '❌'}
               </span>
-              <span className="text-white font-semibold">Previous Year Limit</span>
+              <span className="text-white font-light text-lg">Previous Year Limit</span>
             </div>
-            <p className="text-gray-300 text-sm mt-1">
+            <p className="text-white/70 font-light leading-relaxed mt-2">
               {businessType === 'new' ? 'New business - automatically passed' : `≤ €22,000 (you: €${previousYearRevenue.toLocaleString()})`}
             </p>
           </div>
           
-          <div className={`p-4 rounded-xl ${results.currentYearOk ? 'bg-green-500/10 border border-green-500/20' : 'bg-red-500/10 border border-red-500/20'}`}>
-            <div className="flex items-center space-x-2">
+          <div className={`p-6 rounded-2xl ${results.currentYearOk ? 'backdrop-blur-md bg-green-400/10 border border-green-400/20' : 'backdrop-blur-md bg-red-400/10 border border-red-400/20'}`}>
+            <div className="flex items-center space-x-3">
               <span className={results.currentYearOk ? 'text-green-400' : 'text-red-400'}>
                 {results.currentYearOk ? '✅' : '❌'}
               </span>
-              <span className="text-white font-semibold">Current Year Limit</span>
+              <span className="text-white font-light text-lg">Current Year Limit</span>
             </div>
-            <p className="text-gray-300 text-sm mt-1">
+            <p className="text-white/70 font-light leading-relaxed mt-2">
               ≤ €50,000 (you: €{currentYearRevenue.toLocaleString()})
             </p>
           </div>
         </div>
         
         {/* Additional Info */}
-        <div className="mt-6 p-4 bg-blue-500/20 border border-blue-500/30 rounded-xl">
-          <p className="text-blue-200 text-sm">
-            <strong>What is Kleinunternehmerregelung?</strong> Small business owners can opt out of charging VAT 
+        <div className="mt-8 p-6 backdrop-blur-md bg-white/[0.05] border border-white/[0.08] rounded-2xl">
+          <p className="text-white/70 font-light leading-relaxed">
+            <strong className="text-white">What is Kleinunternehmerregelung?</strong> Small business owners can opt out of charging VAT 
             if their revenue stays below €22,000 (previous year) and €50,000 (current year). 
             This simplifies accounting but means you cannot deduct input VAT.
           </p>
@@ -648,45 +654,44 @@ export default function CalculatorsPage() {
   }, [activeCalculator]);
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-auto scroll-smooth">
       <Navigation />
       
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-blue-900 to-purple-900"></div>
+      {/* Background gradient overlay */}
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
       
-      {/* Animated background orbs */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-green-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      {/* Ambient lighting effects */}
+      <div className="fixed top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl"></div>
+      <div className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-yellow-400/[0.03] rounded-full blur-3xl"></div>
       
       {/* Main content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 pt-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-20 pt-28 md:pt-32">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-white leading-tight tracking-tight mb-6">
             Calculators
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed max-w-4xl mx-auto">
             Calculate work hours, tax estimates, and business requirements for Germany
           </p>
         </div>
 
-        {/* Calculator Cards - Hidden when calculator is active on mobile */}
-        <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 transition-all duration-300 ${
-          activeCalculator ? 'md:block hidden' : 'block'
+        {/* Calculator Cards - Better desktop layout */}
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 transition-all duration-700 ${
+          activeCalculator ? 'md:mb-8' : 'mb-16'
         }`}>
           {/* Student Work Hours Calculator */}
           <div 
             className="group relative cursor-pointer"
             onClick={() => handleCalculatorSelect('work-hours')}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition-all duration-300"></div>
-            <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 hover:scale-105 hover:bg-white/15 transition-all duration-500 shadow-2xl">
-              <div className="text-6xl mb-6">⏰</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Work Hours</h3>
-              <p className="text-gray-300 leading-relaxed mb-6">
+            <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 md:p-12 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl hover:transform hover:scale-[1.02]">
+              <div className="text-5xl md:text-6xl mb-6">⏰</div>
+              <h3 className="text-xl md:text-2xl font-light text-white mb-4">Work Hours</h3>
+              <p className="text-white/70 font-light leading-relaxed mb-6">
                 Calculate if your student work schedule complies with German regulations
               </p>
-              <div className="inline-flex items-center text-blue-400 font-semibold">
+              <div className="inline-flex items-center text-yellow-400 font-light">
                 Calculate →
               </div>
             </div>
@@ -697,14 +702,13 @@ export default function CalculatorsPage() {
             className="group relative cursor-pointer"
             onClick={() => handleCalculatorSelect('tax-estimate')}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition-all duration-300"></div>
-            <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 hover:scale-105 hover:bg-white/15 transition-all duration-500 shadow-2xl">
-              <div className="text-6xl mb-6">💰</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Tax Estimate</h3>
-              <p className="text-gray-300 leading-relaxed mb-6">
+            <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 md:p-12 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl hover:transform hover:scale-[1.02]">
+              <div className="text-5xl md:text-6xl mb-6">💰</div>
+              <h3 className="text-xl md:text-2xl font-light text-white mb-4">Tax Estimate</h3>
+              <p className="text-white/70 font-light leading-relaxed mb-6">
                 Estimate your income tax and social contributions in Germany
               </p>
-              <div className="inline-flex items-center text-purple-400 font-semibold">
+              <div className="inline-flex items-center text-yellow-400 font-light">
                 Calculate →
               </div>
             </div>
@@ -715,43 +719,41 @@ export default function CalculatorsPage() {
             className="group relative cursor-pointer"
             onClick={() => handleCalculatorSelect('kleinunternehmer')}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition-all duration-300"></div>
-            <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 hover:scale-105 hover:bg-white/15 transition-all duration-500 shadow-2xl">
-              <div className="text-6xl mb-6">📊</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Kleinunternehmer</h3>
-              <p className="text-gray-300 leading-relaxed mb-6">
+            <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 md:p-12 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl hover:transform hover:scale-[1.02]">
+              <div className="text-5xl md:text-6xl mb-6">📊</div>
+              <h3 className="text-xl md:text-2xl font-light text-white mb-4">Kleinunternehmer</h3>
+              <p className="text-white/70 font-light leading-relaxed mb-6">
                 Check if you qualify for small business VAT exemption
               </p>
-              <div className="inline-flex items-center text-orange-400 font-semibold">
+              <div className="inline-flex items-center text-yellow-400 font-light">
                 Calculate →
               </div>
             </div>
           </div>
         </div>
 
-        {/* Active Calculator Display */}
+        {/* Active Calculator Display - Fixed desktop layout */}
         {activeCalculator && (
           <div ref={calculatorRef} className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur"></div>
-            <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-2xl">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-                <h3 className="text-xl md:text-2xl font-bold text-white">
+            <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-6 md:p-12 shadow-2xl hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-white">
                   {activeCalculator === 'work-hours' && 'Student Work Hours Calculator'}
                   {activeCalculator === 'tax-estimate' && 'Tax Estimation Calculator'}
                   {activeCalculator === 'kleinunternehmer' && 'Kleinunternehmer Eligibility'}
                 </h3>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   {/* Back to all calculators button - mobile only */}
                   <button 
                     onClick={() => setActiveCalculator(null)}
-                    className="md:hidden bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-gray-300 hover:text-white transition-all text-sm"
+                    className="md:hidden backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 rounded-xl font-light hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white transition-all duration-500 px-4 py-2 text-sm"
                   >
                     ← All Calculators
                   </button>
                   {/* Close button */}
                   <button 
                     onClick={() => setActiveCalculator(null)}
-                    className="text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-lg transition-all"
+                    className="backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 rounded-xl font-light hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white transition-all duration-500 w-10 h-10 flex items-center justify-center text-xl"
                   >
                     ✕
                   </button>
