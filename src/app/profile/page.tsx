@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import Navigation from '@/components/Navigation';
+import Link from 'next/link';
 
 export default function ProfilePage() {
   const { user } = useUser();

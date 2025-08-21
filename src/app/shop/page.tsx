@@ -1,5 +1,5 @@
 import Navigation from '@/components/Navigation';
-
+import Link from 'next/link';
 export default function ShopPage() {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { useSignIn } from '@clerk/nextjs';
-
+import Link from 'next/link';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
