@@ -32,6 +32,12 @@ export default function SignupPage() {
     try {
       console.log('✅ Verifying with code:', verificationCode);
       
+      // Check if signUp is available
+      if (!signUp) {
+        alert('Authentication not available. Please try again.');
+        return;
+      }
+      
       const result = await signUp.attemptEmailAddressVerification({
         code: verificationCode,
       });
@@ -80,6 +86,12 @@ export default function SignupPage() {
     try {
       console.log('✅ Creating account for:', formData.email);
       
+      // Check if signUp is available
+      if (!signUp) {
+        alert('Authentication not available. Please try again.');
+        return;
+      }
+      
       // Create account with Clerk (simplified - no firstName/lastName for now)
       const result = await signUp.create({
         emailAddress: formData.email,
@@ -92,7 +104,9 @@ export default function SignupPage() {
       // Check if email verification is needed
       if (result.status === 'missing_requirements') {
         console.log('📧 Email verification needed');
-        await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+        if (signUp) {
+          await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+        }
         setNeedsVerification(true);  // Show verification form
         alert('Account created! Please check your email for a verification code and enter it below.');
       } else if (result.status === 'complete') {
