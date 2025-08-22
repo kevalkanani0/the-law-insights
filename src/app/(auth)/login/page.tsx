@@ -60,81 +60,78 @@ const handleSubmit = async (e: React.FormEvent) => {
 };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <Navigation />
       
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-black"></div>
+      {/* Background System */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
       
-      {/* Animated background orbs */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      {/* Ambient lighting */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-400/[0.03] rounded-full blur-3xl"></div>
       
       {/* Main content */}
       <div className="relative z-10 max-w-md mx-auto px-6 pt-32 pb-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-thin text-white leading-tight tracking-tight mb-4">
             Welcome Back
           </h1>
-          <p className="text-gray-300">
+          <p className="text-white/70 font-light">
             Sign in to access your legal insights dashboard
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur"></div>
-          <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-white font-semibold mb-2">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  placeholder="your@email.com"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white font-semibold mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  placeholder="••••••••"
-                />
-              </div>
-              
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? 'Signing in...' : 'Sign In'}
-              </button>
-            </form>
+        <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-12 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl hover:shadow-3xl">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div>
+              <label className="block text-white font-light mb-3">
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300"
+                placeholder="your@email.com"
+              />
+            </div>
             
-            {/* Links */}
-            <div className="mt-6 text-center space-y-3">
-              <a href="#" className="text-blue-400 hover:text-blue-300 text-sm">
-                Forgot your password?
+            <div>
+              <label className="block text-white font-light mb-3">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300"
+                placeholder="••••••••"
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 px-8 py-4 rounded-2xl font-light hover:bg-yellow-400/30 hover:border-yellow-400/50 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+            >
+              {isLoading ? 'Signing in...' : 'Sign In'}
+            </button>
+          </form>
+          
+          {/* Links */}
+          <div className="mt-8 text-center space-y-4">
+            <a href="#" className="block text-white/60 hover:text-white font-light text-sm transition-colors duration-300">
+              Forgot your password?
+            </a>
+            <div className="text-white/60 font-light text-sm">
+              Don&apos;t have an account?{' '}
+              <a href="/signup" className="text-yellow-400 hover:text-yellow-300 font-light transition-colors duration-300">
+                Sign up
               </a>
-              <div className="text-gray-400 text-sm">
-                Don&apos;t have an account?{' '}
-                <a href="/signup" className="text-blue-400 hover:text-blue-300 font-semibold">
-                  Sign up
-                </a>
-              </div>
             </div>
           </div>
         </div>

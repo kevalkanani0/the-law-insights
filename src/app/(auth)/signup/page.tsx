@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { useSignUp } from '@clerk/nextjs';
 
-
 export default function SignupPage() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -145,24 +144,24 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <Navigation />
       
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
       
-      {/* Animated background orbs */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      {/* Ambient lighting */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-400/[0.03] rounded-full blur-3xl"></div>
       
       {/* Main content */}
       <div className="relative z-10 max-w-2xl mx-auto px-6 pt-32 pb-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent mb-4">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-thin text-white leading-tight tracking-tight mb-6">
             {needsVerification ? 'Verify Your Email' : 'Join The Law Insights'}
           </h1>
-          <p className="text-gray-300">
+          <p className="text-white/70 font-light text-lg leading-relaxed">
             {needsVerification 
               ? 'Enter the verification code sent to your email' 
               : 'Create your account and get personalized legal guidance'
@@ -172,19 +171,18 @@ export default function SignupPage() {
 
         {/* Signup Form */}
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-3xl blur"></div>
-          <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
+          <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-12 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-700 shadow-2xl hover:shadow-3xl hover:transform hover:scale-[1.02]">
             
             {!needsVerification ? (
               // Regular Signup Form
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-10">
                 
                 {/* Personal Information */}
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Personal Information</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <h3 className="text-2xl md:text-3xl font-light text-white mb-8">Personal Information</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-white font-medium mb-2">
+                      <label className="block text-white font-light mb-3 text-lg">
                         First Name
                       </label>
                       <input
@@ -192,13 +190,13 @@ export default function SignupPage() {
                         value={formData.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
                         required
-                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
                         placeholder="John"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-white font-medium mb-2">
+                      <label className="block text-white font-light mb-3 text-lg">
                         Last Name
                       </label>
                       <input
@@ -206,7 +204,7 @@ export default function SignupPage() {
                         value={formData.lastName}
                         onChange={(e) => handleInputChange('lastName', e.target.value)}
                         required
-                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
                         placeholder="Doe"
                       />
                     </div>
@@ -215,10 +213,10 @@ export default function SignupPage() {
 
                 {/* Account Details */}
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Account Details</h3>
-                  <div className="space-y-4">
+                  <h3 className="text-2xl md:text-3xl font-light text-white mb-8">Account Details</h3>
+                  <div className="space-y-6">
                     <div>
-                      <label className="block text-white font-medium mb-2">
+                      <label className="block text-white font-light mb-3 text-lg">
                         Email Address
                       </label>
                       <input
@@ -226,14 +224,14 @@ export default function SignupPage() {
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         required
-                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
                         placeholder="john@example.com"
                       />
                     </div>
                     
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-white font-medium mb-2">
+                        <label className="block text-white font-light mb-3 text-lg">
                           Password
                         </label>
                         <input
@@ -241,13 +239,13 @@ export default function SignupPage() {
                           value={formData.password}
                           onChange={(e) => handleInputChange('password', e.target.value)}
                           required
-                          className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                          className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
                           placeholder="••••••••"
                         />
                       </div>
                       
                       <div>
-                        <label className="block text-white font-medium mb-2">
+                        <label className="block text-white font-light mb-3 text-lg">
                           Confirm Password
                         </label>
                         <input
@@ -255,7 +253,7 @@ export default function SignupPage() {
                           value={formData.confirmPassword}
                           onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                           required
-                          className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                          className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
                           placeholder="••••••••"
                         />
                       </div>
@@ -265,14 +263,14 @@ export default function SignupPage() {
 
                 {/* Profile Information */}
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Your Profile</h3>
+                  <h3 className="text-2xl md:text-3xl font-light text-white mb-8">Your Profile</h3>
                   
                   {/* User Type */}
-                  <div className="mb-4">
-                    <label className="block text-white font-medium mb-3">
+                  <div className="mb-8">
+                    <label className="block text-white font-light mb-6 text-lg">
                       What describes you best?
                     </label>
-                    <div className="grid md:grid-cols-3 gap-3">
+                    <div className="grid md:grid-cols-3 gap-4">
                       {[
                         { value: 'student' as const, label: '🎓 Student', desc: 'Studying in Germany' },
                         { value: 'professional' as const, label: '💼 Professional', desc: 'Working or job-seeking' },
@@ -282,32 +280,34 @@ export default function SignupPage() {
                           key={type.value}
                           type="button"
                           onClick={() => handleInputChange('userType', type.value)}
-                          className={`p-4 rounded-xl text-left transition-all ${
+                          className={`p-6 rounded-2xl text-left transition-all duration-500 ${
                             formData.userType === type.value 
-                              ? 'bg-purple-500/30 border-2 border-purple-400' 
-                              : 'bg-white/5 border border-white/20 hover:bg-white/10'
+                              ? 'backdrop-blur-md bg-yellow-400/20 border-2 border-yellow-400/30 hover:bg-yellow-400/30' 
+                              : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] hover:bg-white/[0.08] hover:border-white/[0.25]'
                           }`}
                         >
-                          <div className="font-semibold text-white">{type.label}</div>
-                          <div className="text-gray-300 text-sm mt-1">{type.desc}</div>
+                          <div className={`font-light text-lg ${formData.userType === type.value ? 'text-yellow-400' : 'text-white'}`}>
+                            {type.label}
+                          </div>
+                          <div className="text-white/60 text-sm mt-2 font-light">{type.desc}</div>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   {/* EU Status */}
-                  <div className="mb-4">
-                    <label className="block text-white font-medium mb-3">
+                  <div className="mb-8">
+                    <label className="block text-white font-light mb-6 text-lg">
                       Your Status
                     </label>
                     <div className="flex gap-4">
                       <button
                         type="button"
                         onClick={() => handleInputChange('euStatus', 'eu')}
-                        className={`px-6 py-3 rounded-xl font-semibold transition-all flex-1 ${
+                        className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 flex-1 ${
                           formData.euStatus === 'eu' 
-                            ? 'bg-purple-500 text-white' 
-                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                            ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/30' 
+                            : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
                         }`}
                       >
                         EU/EEA Citizen
@@ -315,10 +315,10 @@ export default function SignupPage() {
                       <button
                         type="button"
                         onClick={() => handleInputChange('euStatus', 'non-eu')}
-                        className={`px-6 py-3 rounded-xl font-semibold transition-all flex-1 ${
+                        className={`px-8 py-4 rounded-2xl font-light transition-all duration-500 flex-1 ${
                           formData.euStatus === 'non-eu' 
-                            ? 'bg-purple-500 text-white' 
-                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                            ? 'backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/30' 
+                            : 'backdrop-blur-md bg-white/[0.05] border border-white/[0.15] text-white/80 hover:bg-white/[0.08] hover:border-white/[0.25] hover:text-white'
                         }`}
                       >
                         Non-EU Citizen
@@ -328,34 +328,34 @@ export default function SignupPage() {
 
                   {/* City */}
                   <div>
-                    <label className="block text-white font-medium mb-2">
+                    <label className="block text-white font-light mb-3 text-lg">
                       City (Optional)
                     </label>
                     <input
                       type="text"
                       value={formData.city}
                       onChange={(e) => handleInputChange('city', e.target.value)}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 font-light"
                       placeholder="Berlin, Munich, Hamburg..."
                     />
                   </div>
                 </div>
 
                 {/* Terms Agreement */}
-                <div className="flex items-start space-x-3">
+                <div className="flex items-start space-x-4">
                   <input
                     type="checkbox"
                     checked={formData.agreeToTerms}
                     onChange={(e) => handleInputChange('agreeToTerms', e.target.checked)}
-                    className="mt-1 w-5 h-5 text-purple-500 bg-white/10 border-white/20 rounded focus:ring-purple-400"
+                    className="mt-1 w-5 h-5 text-yellow-400 bg-white/[0.05] border-white/[0.15] rounded focus:ring-yellow-400/50 focus:ring-2"
                   />
-                  <label className="text-gray-300 text-sm">
+                  <label className="text-white/70 font-light leading-relaxed">
                     I agree to the{' '}
-                    <a href="#" className="text-purple-400 hover:text-purple-300">
+                    <a href="#" className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300">
                       Terms of Service
                     </a>{' '}
                     and{' '}
-                    <a href="#" className="text-purple-400 hover:text-purple-300">
+                    <a href="#" className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300">
                       Privacy Policy
                     </a>. I understand this platform provides educational information only, not legal advice.
                   </label>
@@ -365,24 +365,24 @@ export default function SignupPage() {
                 <button
                   type="submit"
                   disabled={isLoading || !formData.agreeToTerms}
-                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 px-8 py-4 rounded-2xl font-light hover:bg-yellow-400/30 hover:border-yellow-400/50 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
                 >
                   {isLoading ? 'Creating Account...' : 'Create Account'}
                 </button>
               </form>
             ) : (
               // Email Verification Form
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div className="text-center">
-                  <div className="text-6xl mb-4">📧</div>
-                  <p className="text-gray-300 mb-6">
-                    We sent a verification code to <span className="text-purple-400 font-semibold">{formData.email}</span>
+                  <div className="text-6xl mb-6">📧</div>
+                  <p className="text-white/70 font-light text-lg leading-relaxed mb-8">
+                    We sent a verification code to <span className="text-yellow-400 font-light">{formData.email}</span>
                   </p>
                 </div>
 
-                <form onSubmit={handleVerification} className="space-y-4">
+                <form onSubmit={handleVerification} className="space-y-6">
                   <div>
-                    <label className="block text-white font-medium mb-2">
+                    <label className="block text-white font-light mb-3 text-lg">
                       Verification Code
                     </label>
                     <input
@@ -390,7 +390,7 @@ export default function SignupPage() {
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
                       placeholder="Enter 6-digit code"
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 text-center text-2xl tracking-widest"
+                      className="w-full backdrop-blur-md bg-white/[0.05] border border-white/[0.15] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/30 transition-all duration-300 text-center text-2xl tracking-widest font-light"
                       maxLength={6}
                       autoFocus
                     />
@@ -399,7 +399,7 @@ export default function SignupPage() {
                   <button
                     type="submit"
                     disabled={isLoading || verificationCode.length !== 6}
-                    className="w-full bg-gradient-to-r from-green-500 to-blue-500 py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full backdrop-blur-md bg-yellow-400/20 border border-yellow-400/30 text-yellow-400 px-8 py-4 rounded-2xl font-light hover:bg-yellow-400/30 hover:border-yellow-400/50 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
                   >
                     {isLoading ? 'Verifying...' : 'Verify Email'}
                   </button>
@@ -408,7 +408,7 @@ export default function SignupPage() {
                 <div className="text-center">
                   <button
                     onClick={() => setNeedsVerification(false)}
-                    className="text-purple-400 hover:text-purple-300 text-sm"
+                    className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-light"
                   >
                     ← Back to signup form
                   </button>
@@ -418,10 +418,10 @@ export default function SignupPage() {
             
             {/* Login Link */}
             {!needsVerification && (
-              <div className="mt-6 text-center">
-                <div className="text-gray-400 text-sm">
+              <div className="mt-8 text-center">
+                <div className="text-white/60 font-light">
                   Already have an account?{' '}
-                  <a href="/login" className="text-purple-400 hover:text-purple-300 font-semibold">
+                  <a href="/login" className="text-yellow-400 hover:text-yellow-300 font-light transition-colors duration-300">
                     Sign in
                   </a>
                 </div>
