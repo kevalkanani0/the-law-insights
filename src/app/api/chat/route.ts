@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     console.log('API key found, calling Groq...');
     
     const result = await generateText({
-      model: groq('llama3-8b-8192'),
+      model: groq('openai/gpt-oss-120b'),
       system: "You are The Law Insights AI, a helpful assistant for German law. Provide educational information only, not legal advice. Always end responses with: Educational info only, not legal advice.",
       messages,
       temperature: 0.7,
